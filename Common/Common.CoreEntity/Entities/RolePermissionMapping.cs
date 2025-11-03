@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Common.CoreEntity.Entities
 {
-    public class RolePermissionMapping : BaseEntity
+    public class RolePermissionMapping
     {
         public Guid RoleId { get; set; }
         public Role Role { get; set; }

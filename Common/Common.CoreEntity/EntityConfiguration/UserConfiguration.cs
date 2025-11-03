@@ -8,7 +8,14 @@ namespace Common.CoreEntity.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.TableName();
+            builder.ConfigurationBaseEntity();
+            builder.Property(t => t.Name);
+            builder.Property(t => t.Email);
+            builder.Property(t => t.Password);
+            builder.Property(t => t.Gender);
+            builder.Property(t => t.Photo);
+            builder.Property(t => t.DateOfBirth);
         }
     }
 }
