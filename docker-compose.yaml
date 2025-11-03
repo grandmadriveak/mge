@@ -1,40 +1,40 @@
 version: "3.7"
 
 services:
-  # postgresql:
-  #   image: postgres:14-alpine
-  #   environment:
-  #     - POSTGRES_DB=postgres
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=1qaz2wsxE
-  #   ports:
-  #     - 5432:5432
-  #   networks:
-  #     - mge-network
+  postgresql:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    ports:
+      - 5432:5432
+    networks:
+      - mge-network
 
-  # rabbitmq:
-  #   image: rabbitmq:management 
-  #   container_name: rabbitmq
-  #   ports:
-  #     - "5672:5672" 
-  #     - "15672:15672" 
-  #   environment:
-  #     RABBITMQ_DEFAULT_USER: admin
-  #     RABBITMQ_DEFAULT_PASS: admin
-  #   networks:
-  #     - mge-network
+  rabbitmq:
+    image: rabbitmq:management 
+    container_name: rabbitmq
+    ports:
+      - "5672:5672" 
+      - "15672:15672" 
+    environment:
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS
+    networks:
+      - mge-network
 
-  # redis:
-  #   image: redis:latest
-  #   ports:
-  #     - "6379:6379"
-  #   healthcheck:
-  #     test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 5
-  #   networks:
-  #     - mge-network
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mge-network
 
   order-api:
     image: ghcr.io/thiendo/mge/order-api:0.1.0
@@ -44,38 +44,42 @@ services:
     ports:
       - "8080:80"
     environment:
-      - CoffeeShopApi=http://coffeeshop-app
-    # depends-on:
-    #   - postgre
+    depends-on:
+      - postgre
+      - rabbitmq
     restart: always
-    # networks:
-    #   - mge-network
+    networks:
+      - mge-network
 
-  # product-api:
-  #   image: ghcr.io/thiendo/mge/product-api:0.1.0
-  #   build:
-  #     context: .
-  #     dockerfile: ./Devops/Dockerfile/product-api
-  #   ports:
-  #     - "12001:12001"
-  #   environment:
-  #     - CoffeeShopApi=http://coffeeshop-app
-  #   restart: always
-  #   # networks:
-  #   #   - mge-network
+  product-api:
+    image: ghcr.io/thiendo/mge/product-api:0.1.0
+    build:
+      context: .
+      dockerfile: ./Devops/Dockerfile/product-api
+    ports:
+      - "12001:12001"
+    environment:
+    depends-on:
+      - postgre
+      - rabbitmq
+    restart: always
+    networks:
+      - mge-network
 
-  # shipping-api:
-  #   image: ghcr.io/thiendo/mge/shipping-api:0.1.0
-  #   build:
-  #     context: .
-  #     dockerfile: ./Devops/Dockerfile/shipping-api
-  #   ports:
-  #     - "12002:12002"
-  #   environment:
-  #     - CoffeeShopApi=http://coffeeshop-app
-  #   restart: always
-  #   # networks:
-  #   #   - mge-network
+  shipping-api:
+    image: ghcr.io/thiendo/mge/shipping-api:0.1.0
+    build:
+      context: .
+      dockerfile: ./Devops/Dockerfile/shipping-api
+    ports:
+      - "12002:12002"
+    environment:
+    depends-on:
+      - postgre
+      - rabbitmq
+    restart: always
+    networks:
+      - mge-network
 
-# networks:
-#   mge-network:
+networks:
+  mge-network:

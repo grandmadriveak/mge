@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Common.CoreEntity.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Common.CoreEntity.EntityConfiguration
 {
-    internal class RolePermissionMappingConfiguration
+    internal class RolePermissionMappingConfiguration : IEntityTypeConfiguration<RolePermissionMapping>
     {
+        public void Configure(EntityTypeBuilder<RolePermissionMapping> builder)
+        {
+            builder.TableName();
+            builder.HasKey(t => new { t.RoleId, t.Permission });
+            builder.Property(t => t.RoleId);
+            builder.Property(t => t.Permission);
+        }
     }
 }
