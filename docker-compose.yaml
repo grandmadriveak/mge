@@ -51,11 +51,11 @@ services:
     networks:
       - mge-network
 
-  product-api:
-    image: ghcr.io/thiendo/mge/product-api:0.1.0
+  inventory-api:
+    image: ghcr.io/thiendo/mge/inventory-api:0.1.0
     build:
       context: .
-      dockerfile: ./Devops/Dockerfile/product-api
+      dockerfile: ./Devops/Dockerfile/inventory-api
     ports:
       - "12001:12001"
     environment:
@@ -71,6 +71,36 @@ services:
     build:
       context: .
       dockerfile: ./Devops/Dockerfile/shipping-api
+    ports:
+      - "12002:12002"
+    environment:
+    depends-on:
+      - postgre
+      - rabbitmq
+    restart: always
+    networks:
+      - mge-network
+
+  database-api:
+    image: ghcr.io/thiendo/mge/database-api:0.1.0
+    build:
+      context: .
+      dockerfile: ./Devops/Dockerfile/database-api
+    ports:
+      - "12002:12002"
+    environment:
+    depends-on:
+      - postgre
+      - rabbitmq
+    restart: always
+    networks:
+      - mge-network
+
+  identity-api:
+    image: ghcr.io/thiendo/mge/identity-api:0.1.0
+    build:
+      context: .
+      dockerfile: ./Devops/Dockerfile/identity-api
     ports:
       - "12002:12002"
     environment:

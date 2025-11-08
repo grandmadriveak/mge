@@ -1,9 +1,9 @@
 {
-  "IsEncrypted": false,
-  "Values": {
-    "AzureWebJobsStorage": "",
-    "FUNCTIONS_INPROC_NET8_ENABLED": "1",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "RabbitMQConnectionString": "amqp://admin:admin@localhost:5672/"
-  }
+    "IsEncrypted": false,
+    "Values": {
+      "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+      "FUNCTIONS_INPROC_NET8_ENABLED": "1",
+      "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+      "RabbitMQConnectionString": "amqp://admin:admin@localhost:5672/"
+    }
 }
