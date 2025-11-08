@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Common.CoreEntity.EntityConfiguration
 {
-    internal class RolePermissionMappingConfiguration : IEntityTypeConfiguration<RolePermissionMapping>
+    public class RolePermissionMappingConfiguration : IEntityTypeConfiguration<RolePermissionMapping>
     {
         public void Configure(EntityTypeBuilder<RolePermissionMapping> builder)
         {
