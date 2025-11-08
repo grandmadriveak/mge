@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "CommonFunctions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7045"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 34566,
+      "useSSL": false
+    }
+  }
+}
