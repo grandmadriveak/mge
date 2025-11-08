@@ -1,3 +1,5 @@
+using Common.RestApi.Constants;
+using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Shipping.API.Controllers
@@ -28,6 +30,12 @@ namespace Shipping.API.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [CapSubscribe(RabbitMQConstants.RoutingKey.Demo, Group = RabbitMQConstants.Queue.SendingEmail)]
+        public async Task Demo(string abc)
+        {
+            Console.WriteLine(abc);
         }
     }
 }

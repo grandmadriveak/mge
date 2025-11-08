@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Common.RestApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:52532;http://localhost:52533"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+    <ItemGroup>
+	    <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="8.4.1" />
+	    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.4.1" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="EventBus\" />
+    </ItemGroup>
+</Project>
