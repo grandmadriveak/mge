@@ -51,7 +51,7 @@ namespace Common.RestApi
 
         public async Task DeleteRangeAsync<T>(Expression<Func<T, bool>> expression) where T : class
         {
-            var entities = GetAllAsync<T>(expression);
+            var entities = await GetAllAsync<T>(expression);
             Context.RemoveRange(entities);
         }
         #endregion Multiple

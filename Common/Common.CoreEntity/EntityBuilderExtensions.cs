@@ -9,7 +9,7 @@ namespace Common.CoreEntity
         public static void ConfigurationBaseEntity<T>(this EntityTypeBuilder<T> builder) where T : BaseEntity
         {
             builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id);
+            builder.Property(t => t.Id).ValueGeneratedOnAdd();
         }
 
         public static void ConfigurationExtendEntity<T>(this EntityTypeBuilder<T> builder) where T : ExtendEntity
