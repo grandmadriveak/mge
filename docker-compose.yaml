@@ -36,13 +36,13 @@ services:
     networks:
       - mge-network
 
-  order-api:
-    image: ghcr.io/thiendo/mge/order-api:0.1.0
+  database-api:
+    image: ghcr.io/thiendo/mge/database-build:0.1.0
     build:
       context: .
-      dockerfile: ./Devops/Dockerfile/order-api
+      dockerfile: ./Devops/Dockerfile/database-build
     ports:
-      - "8080:80"
+      - "12000:12000"
     environment:
     depends-on:
       - postgre
@@ -50,12 +50,12 @@ services:
     restart: always
     networks:
       - mge-network
-
-  inventory-api:
-    image: ghcr.io/thiendo/mge/inventory-api:0.1.0
+    
+  identity-api:
+    image: ghcr.io/thiendo/mge/identity-build:0.1.0
     build:
       context: .
-      dockerfile: ./Devops/Dockerfile/inventory-api
+      dockerfile: ./Devops/Dockerfile/identity-build
     ports:
       - "12001:12001"
     environment:
@@ -66,43 +66,43 @@ services:
     networks:
       - mge-network
 
+  order-api:
+    image: ghcr.io/thiendo/mge/order-build:0.1.0
+    build:
+      context: .
+      dockerfile: ./Devops/Dockerfile/order-build
+    ports:
+      - "12002:12002"
+    environment:
+    depends-on:
+      - postgre
+      - rabbitmq
+    restart: always
+    networks:
+      - mge-network
+
+  inventory-api:
+    image: ghcr.io/thiendo/mge/inventory-build:0.1.0
+    build:
+      context: .
+      dockerfile: ./Devops/Dockerfile/inventory-build
+    ports:
+      - "12003:12003"
+    environment:
+    depends-on:
+      - postgre
+      - rabbitmq
+    restart: always
+    networks:
+      - mge-network
+
   shipping-api:
-    image: ghcr.io/thiendo/mge/shipping-api:0.1.0
+    image: ghcr.io/thiendo/mge/shipping-build:0.1.0
     build:
       context: .
-      dockerfile: ./Devops/Dockerfile/shipping-api
+      dockerfile: ./Devops/Dockerfile/shipping-build
     ports:
-      - "12002:12002"
-    environment:
-    depends-on:
-      - postgre
-      - rabbitmq
-    restart: always
-    networks:
-      - mge-network
-
-  database-api:
-    image: ghcr.io/thiendo/mge/database-api:0.1.0
-    build:
-      context: .
-      dockerfile: ./Devops/Dockerfile/database-api
-    ports:
-      - "12002:12002"
-    environment:
-    depends-on:
-      - postgre
-      - rabbitmq
-    restart: always
-    networks:
-      - mge-network
-
-  identity-api:
-    image: ghcr.io/thiendo/mge/identity-api:0.1.0
-    build:
-      context: .
-      dockerfile: ./Devops/Dockerfile/identity-api
-    ports:
-      - "12002:12002"
+      - "12004:12004"
     environment:
     depends-on:
       - postgre

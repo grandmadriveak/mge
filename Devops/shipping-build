@@ -4,32 +4,30 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
 USER $APP_UID
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Microservices/Order/Order.API/Order.API.csproj", "Microservices/Order/Order.API/"]
+COPY ["Microservices/Shipping/Shipping.API/Shipping.API.csproj", "Microservices/Shipping/Shipping.API/"]
 COPY ["Common/Common.RestApi/Common.RestApi.csproj", "Common/Common.RestApi/"]
 COPY ["Common/Common.Audit/Common.Audit.csproj", "Common/Common.Audit/"]
 COPY ["Common/Common.CoreEntity/Common.CoreEntity.csproj", "Common/Common.CoreEntity/"]
 COPY ["Common/Common.EventBus/Common.EventBus.csproj", "Common/Common.EventBus/"]
-COPY ["Microservices/Order/Order.Infrastructure/Order.Infrastructure.csproj", "Microservices/Order/Order.Infrastructure/"]
-RUN dotnet restore "./Microservices/Order/Order.API/Order.API.csproj"
+COPY ["Microservices/Shipping/Shipping.Infrastructure/Shipping.Infrastructure.csproj", "Microservices/Shipping/Shipping.Infrastructure/"]
+COPY ["Microservices/Shipping/Shipping.Services/Shipping.Services.csproj", "Microservices/Shipping/Shipping.Services/"]
+RUN dotnet restore "./Microservices/Shipping/Shipping.API/Shipping.API.csproj"
 COPY . .
-WORKDIR "/src/Microservices/Order/Order.API"
-RUN dotnet build "./Order.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Microservices/Shipping/Shipping.API"
+RUN dotnet build "./Shipping.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Order.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Shipping.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Order.API.dll"]
+ENTRYPOINT ["dotnet", "Shipping.API.dll"]
