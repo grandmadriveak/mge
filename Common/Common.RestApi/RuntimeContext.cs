@@ -16,6 +16,15 @@ namespace Common.RestApi
         public SSLConfig SSLConfig { get; set; }
         public RedisCacheConfig RedisCacheConfig { get; set; }
         public RabbitMQConfig RabbitMQConfig { get; set; }
+        public Microservices Microservices { get; set; }
+    }
+
+    public class Microservices
+    {
+        public int IdentityPort { get; set; }
+        public int OrderPort { get; set; }
+        public int ShippingPort { get; set; }
+        public int InventoryPort { get; set; }
     }
 
     public class JwtSettings

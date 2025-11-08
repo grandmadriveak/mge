@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Inventory.Services
+namespace Inventory.Infrastructure
 {
     public class InventoryDbContext : DbContext
     {
