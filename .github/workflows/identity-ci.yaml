@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
     
 env:
-  AZURE_CONTAINER_REGISTRY: mge
+  AZURE_CONTAINER_REGISTRY: demoazurethiendo
   CONTAINER_APP_NAME: identity
   RESOURCE_GROUP: mge
 
