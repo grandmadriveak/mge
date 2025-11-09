@@ -1,4 +1,6 @@
-﻿using Common.RestApi.Builder;
+﻿using Common.EventBus.EventBusService;
+using Common.EventBus.EventBusService.RabbitMQ;
+using Common.RestApi.Builder;
 using Common.RestApi.Cache;
 using Common.RestApi.HealthCheck.Builder;
 using DotNetCore.CAP;
@@ -57,6 +59,7 @@ namespace Common.RestApi.Extension
 
         public static IServiceCollection AddMessageBus(this IServiceCollection services)
         {
+            services.AddScoped<ICustomPublishService, CAPPublishService>();
             services.AddCap(options =>
             {
                 var rabbitMQ = RuntimeContext.CommonConfig.RabbitMQConfig;

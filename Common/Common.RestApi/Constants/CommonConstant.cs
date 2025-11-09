@@ -12,6 +12,9 @@
         public const string SqlServerHealthyKey = "sqlserver_healthy";
         public const string DistributedHealthyKey = "distributed_healthy";
         public const string MessageBusHealthyKey = "messagebus_healthy";
+
+        public const string CollerationId = "CollerationId";
+        public const string Authorization = "Authorization";
     }
 
     public class LoggerConstant
@@ -19,6 +22,7 @@
         public const string Actor = "actor";
         public const string Action = "action";
         public const string TenantId = "tenantId";
+        public const string CollerationId = CommonConstant.CollerationId;
     }
 
     public class ClaimKeys
