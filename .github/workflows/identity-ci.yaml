@@ -10,12 +10,12 @@ on:
       - "Common/**"
       - "Microservices/Identity/**"
       - ".github/workflows/identity-ci.yaml"
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - "Common/**"
-      - "Microservices/Identity/**"
-      - ".github/workflows/identity-ci.yaml"
+  # pull_request:
+  #   branches: [ "main" ]
+  #   paths:
+  #     - "Common/**"
+  #     - "Microservices/Identity/**"
+  #     - ".github/workflows/identity-ci.yaml"
   workflow_dispatch:
     
 env:
