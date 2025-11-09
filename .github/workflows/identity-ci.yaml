@@ -17,7 +17,7 @@ on:
       - "Microservices/Identity/**"
       - ".github/workflows/identity-ci.yaml"
   workflow_dispatch:
-
+    
 env:
   AZURE_CONTAINER_REGISTRY: acr_name
   CONTAINER_APP_NAME: ca_name
@@ -37,7 +37,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Setup Docker Buildx
@@ -46,6 +46,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: action/checkout@v4
+    - uses: actions/checkout@v4
     - name: Echo something
       run: echo 'haha'
