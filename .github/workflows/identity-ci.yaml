@@ -16,6 +16,12 @@ on:
       - "Common/**"
       - "Microservices/Identity/**"
       - ".github/workflows/identity-ci.yaml"
+  workflow_dispatch:
+    
+env:
+  AZURE_CONTAINER_REGISTRY: acr_name
+  CONTAINER_APP_NAME: ca_name
+  RESOURCE_GROUP: rg_name
 
 jobs:
   build:
@@ -34,3 +40,12 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Setup Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Echo something
+      run: echo 'haha'

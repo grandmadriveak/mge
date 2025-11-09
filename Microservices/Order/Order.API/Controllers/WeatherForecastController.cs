@@ -1,12 +1,12 @@
+using Common.EventBus.EventBusService;
 using Common.RestApi.Constants;
-using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Order.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController(ICapPublisher publisher) : ControllerBase
+    public class WeatherForecastController(ICustomPublishService publisher) : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -18,7 +18,7 @@ namespace Order.API.Controllers
         {
             try
             {
-                await publisher.PublishAsync(RabbitMQConstants.RoutingKey.Demo, "haha");
+                //await publisher.PublishEventAsync(RabbitMQConstants.RoutingKey.Demo, "haha");
                 return Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
                     Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
