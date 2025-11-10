@@ -8,6 +8,9 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+env:
+  AZURE_CONTAINER_REGISTRY: demoazurethiendo
+
 jobs:
   build:
 
