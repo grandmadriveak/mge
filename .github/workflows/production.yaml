@@ -33,28 +33,24 @@ jobs:
         registry: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io
         username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
         password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
-    - name: Build and push image to ACR
+
+    - name: Build and push Identity image to ACR
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_APP_NAME }}:${{ github.sha }}
+        tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.IDENTITY_CONTAINER_APP_NAME }}:${{ github.sha }}
         file: Devops/identity-build
-    - name: Azure login
-      uses: azure/login@v2
+    
+    - name: Build and push Order image to ACR
+      uses: docker/build-push-action@v6
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Deploy to Azure Container Apps
-      uses: azure/container-apps-deploy-action@v2
+        push: true
+        tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.ORDER_CONTAINER_APP_NAME }}:${{ github.sha }}
+        file: Devops/order-build
+    
+    - name: Build and push Common functions image to ACR
+      uses: docker/build-push-action@v6
       with:
-        imageToDeploy: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_APP_NAME }}:${{ github.sha }}
-        resourceGroup: ${{ env.RESOURCE_GROUP }}
-        containerAppName: ${{ env.CONTAINER_APP_NAME }}
-        enviromentVariables: |
-          ASPNETCORE_ENVIRONMENT=Development
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Echo something
-      run: echo 'hah11a'
+        push: true
+        tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.COMMONFUNTIONS_CONTAINER_APP_NAME }}:${{ github.sha }}
+        file: Devops/commonfunctions-build
