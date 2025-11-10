@@ -4,13 +4,15 @@
 name: Identity services cicd
 
 on:
-  push:
+  pull_request:
     branches: [ "main" ]
   workflow_dispatch:
 
 env:
   AZURE_CONTAINER_REGISTRY: demoazurethiendo
-
+  IDENTITY_CONTAINER_APP_NAME: identity
+  ORDER_CONTAINER_APP_NAME: order
+  COMMONFUNTIONS_CONTAINER_APP_NAME: commonfunctions
 jobs:
   build:
 
