@@ -4,12 +4,6 @@
 name: Database services cicd
 
 on:
-  push:
-    branches: [ "main" ]
-    paths:
-      - "Common/**"
-      - "Microservices/Database/**"
-      - ".github/workflows/database-ci.yaml"
   pull_request:
     branches: [ "main" ]
     paths:
@@ -19,9 +13,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -29,8 +21,8 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Microservices/Database/Database.API
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build Microservices/Database/Database.API --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test Microservices/Database/Database.API --no-build --verbosity normal

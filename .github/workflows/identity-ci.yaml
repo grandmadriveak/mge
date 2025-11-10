@@ -4,30 +4,16 @@
 name: Identity services cicd
 
 on:
-  push:
+  pull_request:
     branches: [ "main" ]
     paths:
       - "Common/**"
       - "Microservices/Identity/**"
       - ".github/workflows/identity-ci.yaml"
-  # pull_request:
-  #   branches: [ "main" ]
-  #   paths:
-  #     - "Common/**"
-  #     - "Microservices/Identity/**"
-  #     - ".github/workflows/identity-ci.yaml"
-  workflow_dispatch:
-    
-env:
-  AZURE_CONTAINER_REGISTRY: demoazurethiendo
-  CONTAINER_APP_NAME: identity
-  RESOURCE_GROUP: mge
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -35,41 +21,8 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Microservices/Identity/Identity.API
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build Microservices/Identity/Identity.API --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: Setup Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    - name: Login to ACR
-      uses: docker/login-action@v3
-      with:
-        registry: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io
-        username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
-        password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
-    - name: Build and push image to ACR
-      uses: docker/build-push-action@v6
-      with:
-        push: true
-        tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_APP_NAME }}:${{ github.sha }}
-        file: Devops/identity-build
-    - name: Azure login
-      uses: azure/login@v2
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Deploy to Azure Container Apps
-      uses: azure/container-apps-deploy-action@v2
-      with:
-        imageToDeploy: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_APP_NAME }}:${{ github.sha }}
-        resourceGroup: ${{ env.RESOURCE_GROUP }}
-        containerAppName: ${{ env.CONTAINER_APP_NAME }}
-        enviromentVariables: |
-          ASPNETCORE_ENVIRONMENT=Development
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Echo something
-      run: echo 'hah11a'
+      run: dotnet test Microservices/Identity/Identity.API --no-build --verbosity normal

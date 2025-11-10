@@ -4,12 +4,6 @@
 name: Order services cicd
 
 on:
-  push:
-    branches: [ "main" ]
-    paths:
-      - "Common/**"
-      - "Microservices/Order/**"
-      - ".github/workflows/order-ci.yaml"
   pull_request:
     branches: [ "main" ]
     paths:
@@ -19,9 +13,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -29,8 +21,14 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Microservices/Order/Order.API
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build Microservices/Order/Order.API --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test Microservices/Order/Order.API --no-build --verbosity normal
+
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
