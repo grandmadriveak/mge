@@ -6,16 +6,7 @@ name: Identity services cicd
 on:
   push:
     branches: [ "production" ]
-    paths:
-      - "Common/**"
-      - "Microservices/Identity/**"
-      - ".github/workflows/identity-ci.yaml"
   workflow_dispatch:
-    
-env:
-  AZURE_CONTAINER_REGISTRY: demoazurethiendo
-  CONTAINER_APP_NAME: identity
-  RESOURCE_GROUP: mge
 
 jobs:
   build:
