@@ -19,9 +19,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Load .env variables into environment
-      uses: cirocosta/dotenv-action@v1.0.1
-      with:
-        path: .env
+      uses: falti/dotenv-action@v1.1.4
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
