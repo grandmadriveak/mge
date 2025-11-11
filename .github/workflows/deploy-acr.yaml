@@ -32,7 +32,7 @@ jobs:
   deploy_identity_img:
     name: Deploy Identity Image
     needs: [build] 
-    uses: ./.github/workflows/deploy-acr-template.yml
+    uses: deploy-acr-template.yml
     with:
       image-name: identity
       dockerfile-path: Docker/identity-build
@@ -40,7 +40,7 @@ jobs:
   deploy_order_img:
     name: Deploy Order Image
     needs: [build] 
-    uses: ./.github/workflows/deploy-acr-template.yml
+    uses: deploy-acr-template.yml
     with:
       image-name: order
       dockerfile-path: Docker/order-build
@@ -48,7 +48,7 @@ jobs:
   deploy_common_functions_img:
     name: Deploy Common Functions Image
     needs: [build] 
-    uses: ./.github/workflows/deploy-acr-template.yml
+    uses: deploy-acr-template.yml
     with:
       image-name: common_functions
       dockerfile-path: Docker/commonfunctions-build 
