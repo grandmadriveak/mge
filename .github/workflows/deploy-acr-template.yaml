@@ -18,6 +18,12 @@ on:
         required: false
         type: string
         default: '[]'
+        
+    secrets:
+      AZURE_REGISTRY_USERNAME:
+        required: true
+      AZURE_REGISTRY_PASSWORD:
+        required: true
 
 jobs:
   deploy:
