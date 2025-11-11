@@ -35,7 +35,7 @@ jobs:
     uses: ./.github/workflows/deploy-acr-template.yaml
     with:
       image-name: identity
-      dockerfile-path: Docker/identity-build
+      dockerfile-path: Devops/identity-build
     secrets:
       AZURE_REGISTRY_USERNAME: ${{ secrets.AZURE_REGISTRY_USERNAME }}
       AZURE_REGISTRY_PASSWORD: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
@@ -46,7 +46,7 @@ jobs:
     uses: ./.github/workflows/deploy-acr-template.yaml
     with:
       image-name: order
-      dockerfile-path: Docker/order-build
+      dockerfile-path: Devops/order-build
     secrets:
       AZURE_REGISTRY_USERNAME: ${{ secrets.AZURE_REGISTRY_USERNAME }}
       AZURE_REGISTRY_PASSWORD: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
@@ -57,7 +57,7 @@ jobs:
     uses: ./.github/workflows/deploy-acr-template.yaml
     with:
       image-name: common_functions
-      dockerfile-path: Docker/commonfunctions-build
+      dockerfile-path: Devops/commonfunctions-build
     secrets:
       AZURE_REGISTRY_USERNAME: ${{ secrets.AZURE_REGISTRY_USERNAME }}
       AZURE_REGISTRY_PASSWORD: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
